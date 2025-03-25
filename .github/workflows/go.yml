@@ -6,6 +6,8 @@ name: Go
 on:
   push:
     branches: [ "main" ]
+    tags:
+      - 'v*'
   pull_request:
     branches: [ "main" ]
 
@@ -25,3 +27,11 @@ jobs:
 
     - name: Test
       run: go test -v ./...
+
+    # -name: Release
+      uses: softprops/action-gh-release@v2
+      with:
+        files: bin/*
+        tag_name: ${{ github.ref_name }}
+        token: ${{ secrets:GIHUB_TOKEN }}
+        overwrite: true
