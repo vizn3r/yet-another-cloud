@@ -14,11 +14,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-
-    - name: Setup
-      uses: actions/setup-go@v4
+    
+    - name: Info
       run: |
         echo "Ref: ${{ github.ref_name }}"
+
+    - name: Setup go
+      uses: actions/setup-go@v4
       with:
         go-version: '1.21.1'
 
