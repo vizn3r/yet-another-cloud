@@ -23,7 +23,8 @@ jobs:
     - name: Build
       run: |
         mkdir -p bin
-        go build -o bin/gocloud ./cloud
+        cd cloud
+        go build -o ../bin/gocloud .
 
     - name: Test
       run: go test -v ./...
