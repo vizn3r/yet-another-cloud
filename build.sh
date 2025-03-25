@@ -2,7 +2,6 @@
 
 TARGETS=(
   "windows/amd64"
-  "windows/amd64"
   "windows/386"
   "windows/arm"
   "windows/arm64"
