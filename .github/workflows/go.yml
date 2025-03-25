@@ -29,8 +29,8 @@ jobs:
         go test
 
     - name: Release
-      if: startsWith(github.ref, 'refs/tags/')
       uses: softprops/action-gh-release@v2
+      if: startsWith(github.ref, 'refs/tags/')
       with:
         files: bin/gocloud
         tag_name: ${{ github.ref_name }}
