@@ -33,5 +33,5 @@ jobs:
       with:
         files: bin/*
         tag_name: ${{ github.ref_name }}
-        token: ${{ secrets:GIHUB_TOKEN }}
+        token: ${{ secrets.GIHUB_TOKEN }}
         overwrite: true
