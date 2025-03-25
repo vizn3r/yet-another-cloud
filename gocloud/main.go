@@ -3,11 +3,13 @@ package main
 import (
 	"cloud/conf"
 	"cloud/imgs"
+	"cloud/log"
 
 	"github.com/gofiber/fiber/v3"
 )
 
 func main() {
+	log.Init(true)
 	conf.Init()
 	app := fiber.New(fiber.Config{})
 

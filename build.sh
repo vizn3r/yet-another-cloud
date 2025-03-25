@@ -12,7 +12,7 @@ TARGETS=(
 )
 
 DIRS=(
-  "cloud"
+  "gocloud"
 )
 
 BUILD_DIR="bin"
@@ -24,9 +24,7 @@ build() {
   local ARCH="$2"
 
   for DIR in "${DIRS[@]}"; do
-    MODULE_NAME=$(basename "$(pwd)")
-
-    NAME="$BUILD_DIR/${MODULE_NAME}_${OS}_${ARCH}"
+    NAME="$BUILD_DIR/${DIR}_${OS}_${ARCH}"
     if [ "$OS" == "windows" ]; then
       NAME+=".exe"
     fi

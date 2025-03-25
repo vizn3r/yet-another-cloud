@@ -2,8 +2,8 @@ package imgs
 
 import (
 	"cloud/conf"
+	"cloud/log"
 	"cloud/util"
-	"log"
 	"os"
 	"path"
 
@@ -15,9 +15,9 @@ func checkMediaDir(dir string) {
 	if _, err := os.Stat(dir); os.IsNotExist(err) {
 		err := os.Mkdir(dir, 0755)
 		if err != nil {
-			log.Print("ERROR:", err)
+			log.Error(err)
 		} else {
-			log.Println("Created 'media' dir")
+			log.Info("Created 'media' dir")
 		}
 	}
 }
@@ -33,6 +33,7 @@ func GET_MediaHandler(c fiber.Ctx) error {
 		return c.SendStatus(fiber.ErrNotFound.Code)
 	}
 
+	log.Info("Serving file:", req_file)
 	ftype, _ := filetype.Match(file)
 	c.Set("Content-Type", ftype.MIME.Value)
 	return c.Send(file)
@@ -44,7 +45,7 @@ func POST_MediaHandler(c fiber.Ctx) error {
 
 	checkMediaDir(conf.MEDIA_DIR)
 
-	log.Println("Writing new file:", path.Join(conf.MEDIA_DIR, name))
+	log.Info("Writing new file:", path.Join(conf.MEDIA_DIR, name))
 	if err := os.WriteFile(path.Join(conf.MEDIA_DIR, name), data, 0644); err != nil {
 		return c.SendStatus(fiber.StatusInternalServerError)
 	}
