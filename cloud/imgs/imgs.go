@@ -11,6 +11,17 @@ import (
 	"github.com/h2non/filetype"
 )
 
+func checkMediaDir(dir string) {
+	if _, err := os.Stat(dir); os.IsNotExist(err) {
+		err := os.Mkdir(dir, 0755)
+		if err != nil {
+			log.Print("ERROR:", err)
+		} else {
+			log.Println("Created 'media' dir")
+		}
+	}
+}
+
 func GET_MediaHandler(c fiber.Ctx) error {
 	req_file := c.Params("fname", "")
 	if req_file == "" {
@@ -31,7 +42,11 @@ func POST_MediaHandler(c fiber.Ctx) error {
 	data := c.Body()
 	name := util.GenerateHash(32)
 
-	log.Println("Writing new file:", name)
-	os.WriteFile(path.Join(conf.MEDIA_DIR, name), data, 0644)
+	checkMediaDir(conf.MEDIA_DIR)
+
+	log.Println("Writing new file:", path.Join(conf.MEDIA_DIR, name))
+	if err := os.WriteFile(path.Join(conf.MEDIA_DIR, name), data, 0644); err != nil {
+		return c.SendStatus(fiber.StatusInternalServerError)
+	}
 	return c.SendString(name)
 }

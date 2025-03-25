@@ -1,0 +1,9 @@
+[Unit]
+Descrition=Go Cloud Server
+After=network.target
+
+[Service]
+ExecStart=/usr/loca/bin/yet-another-cloud/bin/gocloud
+WorkindDirectory=/etc/yet-another-cloud
+Restart=always
+User=
