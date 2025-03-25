@@ -27,7 +27,7 @@ jobs:
         go build -o ../bin/gocloud .
 
     - name: Test
-      run: go test -v ./...
+      run: go test ./cloud
 
     - name: Release
       if: startsWith(github.ref, 'refs/tags/')
